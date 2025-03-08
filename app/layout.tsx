@@ -44,7 +44,7 @@ export default function RootLayout({
             <Navbar />
             <div className="flex flex-1">
               <Sidebar />
-              <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow ml-64">
+              <main className="ml-[80px] md:ml-[80px] flex-1 p-6 transition-all duration-300">
                 {children}
               </main>
             </div>

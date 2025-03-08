@@ -74,18 +74,26 @@ export const DesktopSidebar = () => {
   return (
     <motion.div
       className={cn(
-        "h-full px-4 py-4 hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[300px] shrink-0",
+        "fixed left-0 top-0 h-screen z-50 px-4 py-4 hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800",
       )}
       animate={{
-        width: animate ? (open ? "300px" : "60px") : "300px",
+        width: animate ? (open ? "300px" : "80px") : "300px",
       }}
+      initial={{ width: "80px" }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <div className="flex items-center justify-center mb-4">
-        <img src="/agriculture.svg" alt="Logo" className="w-10 h-10" />
+      <div className="flex items-center justify-center mb-8 pt-16">
+        <img 
+          src="/agriculture.svg" 
+          alt="Logo" 
+          className={cn(
+            "w-10 h-10 transition-all duration-300",
+            !open && "mx-auto"
+          )} 
+        />
       </div>
-      <nav className="flex flex-col gap-2">
+      <nav className="flex flex-col gap-4">
         {links.map((link, index) => (
           <SidebarLink key={index} link={link} />
         ))}
@@ -97,42 +105,41 @@ export const DesktopSidebar = () => {
 export const MobileSidebar = () => {
   const { open, setOpen } = useSidebar();
   return (
-    <div
-      className={cn(
-        "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full"
-      )}
-    >
-      <div className="flex justify-end z-20 w-full">
-        <IconMenu2
-          className="text-neutral-800 dark:text-neutral-200"
-          onClick={() => setOpen(!open)}
-        />
-      </div>
+    <div className="md:hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="fixed top-4 left-4 z-50 p-2"
+      >
+        <IconMenu2 className="text-neutral-800 dark:text-neutral-200" />
+      </button>
+      
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ x: "-100%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: "-100%", opacity: 0 }}
-            transition={{
-              duration: 0.3,
-              ease: "easeInOut",
-            }}
-            className={cn(
-              "fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between"
-            )}
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+            className="fixed top-0 left-0 h-screen w-screen bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm z-40"
+            onClick={() => setOpen(false)}
           >
-            <div className="flex items-center justify-center mb-4">
-              <img src="/agriculture.svg" alt="Logo" className="w-10 h-10" />
-            </div>
-            <nav className="flex flex-col gap-2">
-              {links.map((link, index) => (
-                <SidebarLink key={index} link={link} />
-              ))}
-            </nav>
-            <div className="flex justify-end z-50 text-neutral-800 dark:text-neutral-200">
-              <IconX onClick={() => setOpen(!open)} />
-            </div>
+            <motion.div
+              className="absolute left-0 top-0 h-full w-[300px] bg-white dark:bg-neutral-900 p-6 shadow-xl"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center mb-8 pt-16">
+                <img src="/agriculture.svg" alt="Logo" className="w-10 h-10" />
+                <IconX 
+                  className="text-neutral-800 dark:text-neutral-200 cursor-pointer" 
+                  onClick={() => setOpen(false)}
+                />
+              </div>
+              <nav className="flex flex-col gap-4">
+                {links.map((link, index) => (
+                  <SidebarLink key={index} link={link} />
+                ))}
+              </nav>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -146,17 +153,25 @@ export const SidebarLink = ({ link }: { link: Links }) => {
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-start gap-2 group/sidebar py-2"
+        "flex items-center py-2 px-2 rounded-lg transition-all duration-150",
+        !open ? "justify-center" : "justify-start gap-4"
       )}
     >
-      <img src={link.icon} alt={link.label} className="w-6 h-6" />
+      <img 
+        src={link.icon} 
+        alt={link.label} 
+        className={cn(
+          "w-6 h-6 transition-all duration-300",
+          !open && "mx-auto"
+        )} 
+      />
 
       <motion.span
         animate={{
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover:translate-x-1 transition-transform duration-150 whitespace-pre"
       >
         {link.label}
       </motion.span>
