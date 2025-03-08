@@ -1,0 +1,88 @@
+/* styles/globals.css */
+
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles */
+body {
+  @apply min-h-screen bg-background font-sans antialiased;
+}
+
+/* Additional global styles can be added here */
+
+@layer base {
+  :root {
+    /* Keeping light mode defaults as they are for now, assuming you only want dark mode modified */
+    --background: 0 0% 100%; /* #ffffff */
+    --foreground: 0 0% 3.9%; /* #0a0a0a */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark mode variables updated with your palette */
+    --background: 0 0% 0%; /* #000000 */
+    --foreground: 0 0% 100%; /* #ffffff */
+    --card: 0 0% 9.6%; /* #18181b, content1 */
+    --card-foreground: 0 0% 100%; /* #fff */
+    --popover: 0 0% 15.3%; /* #27272a, content2 */
+    --popover-foreground: 0 0% 100%; /* #fff */
+    --primary: 215 100% 43%; /* #006fee */
+    --primary-foreground: 0 0% 100%; /* #fff */
+    --secondary: 274 60% 47%; /* #7828c8 */
+    --secondary-foreground: 0 0% 100%; /* #fff */
+    --muted: 240 4.9% 73.9%; /* #b8b8be, content3 */
+    --muted-foreground: 0 0% 0%; /* #000 */
+    --accent: 0 0% 100%; /* #ffffff, content4 */
+    --accent-foreground: 0 0% 0%; /* #000 */
+    --destructive: 339 92% 57%; /* #f31260, danger-500 */
+    --destructive-foreground: 0 0% 0%; /* #000 */
+    --border: 240 4.9% 73.9%; /* #b8b8be, reusing content3 */
+    --input: 0 0% 15.3%; /* #27272a, reusing content2 */
+    --ring: 215 100% 43%; /* #006fee, focus */
+    /* Success could be added as a custom variable if needed */
+    --success: 152 76% 41%; /* #17c964 */
+    --success-foreground: 0 0% 0%; /* #000 */
+    /* Warning could be added as a custom variable if needed */
+    --warning: 35 91% 58%; /* #f5a524 */
+    --warning-foreground: 0 0% 0%; /* #000 */
+    /* Chart colors kept as-is unless you want to align them */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
