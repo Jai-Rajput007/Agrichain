@@ -10,6 +10,29 @@ body {
   @apply min-h-screen bg-background font-sans antialiased;
 }
 
+/* Starfield background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: -1;
+  pointer-events: none;
+  animation: starfield 10s linear infinite;
+}
+
+@keyframes starfield {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
 /* Additional global styles can be added here */
 
 @layer base {

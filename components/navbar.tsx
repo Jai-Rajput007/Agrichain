@@ -1,106 +1,55 @@
-// components/Navbar.tsx
+"use client";
+
 import {
-  Navbar as HeroUINavbar,
+  Navbar,
   NavbarContent,
-  NavbarMenu,
-  NavbarMenuToggle,
-  NavbarBrand,
   NavbarItem,
+  Link,
+  NavbarMenu,
   NavbarMenuItem,
-} from "@heroui/navbar";
-import { Button } from "@heroui/button";
-import { Kbd } from "@heroui/kbd";
-import { Link } from "@heroui/link";
-import { Input } from "@heroui/input";
-import { link as linkStyles } from "@heroui/theme";
-import NextLink from "next/link";
-import clsx from "clsx";
-
-import { site } from "@/config/site";
+  NavbarMenuToggle
+} from "@heroui/react";
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  Logo,
-} from "@/components/icons";
 
-export const Navbar = () => {
+export default function App() {
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">Agrochain</p>
-          </NextLink>
-        </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {site.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
-        </ul>
-      </NavbarContent>
-
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
-        <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Twitter" href={site.links.twitter}>
-            <TwitterIcon className="text-default-500" />
+    <Navbar 
+      shouldHideOnScroll 
+      className="fixed top-0 w-full z-50 border-b border-gray-300"
+      isBordered
+    >
+      <NavbarContent className="mx-auto flex gap-4" justify="center">
+        <NavbarItem>
+          <Link color="foreground" href="/demand-supply">
+            Dashboard
           </Link>
-          <Link isExternal aria-label="Discord" href={site.links.discord}>
-            <DiscordIcon className="text-default-500" />
+        </NavbarItem>
+        <NavbarItem isActive>
+          <Link aria-current="page" href="/analytics">
+            Analytics
           </Link>
-          <Link isExternal aria-label="Github" href={site.links.github}>
-            <GithubIcon className="text-default-500" />
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/settings">
+            Settings
           </Link>
+        </NavbarItem>
+        <NavbarItem>
           <ThemeSwitch />
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal aria-label="Github" href={site.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link>
-        <ThemeSwitch />
-        <NavbarMenuToggle />
-      </NavbarContent>
-
       <NavbarMenu>
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          {site.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === site.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href={item.href}
-                size="lg"
-              >
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </div>
+        <NavbarMenuItem>
+          <Link href="/demand-supply">Dashboard</Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link href="/analytics">Analytics</Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link href="/settings">Settings</Link>
+        </NavbarMenuItem>
       </NavbarMenu>
-    </HeroUINavbar>
+    </Navbar>
   );
-};
+}
